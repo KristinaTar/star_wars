@@ -23,17 +23,17 @@ const CharacterPage: React.FC = () => {
 
   // todo  NOT found component
 
-  if (status === StatusType.Loading) {
+  if (status.character === StatusType.Loading) {
     return <Loader />;
-  } else if (status === StatusType.Error) {
+  } else if (status.character === StatusType.Error) {
     return <ErrorPage />;
-  } else if (personData === undefined) {
+  } else if (personData === undefined || !personData.data) {
     return <div>Character not found</div>
   }
 
   return (
-    personData && <div>
-      CharacterPage: {personData.name}
+    <div>
+      CharacterPage: {personData.data.name}{personData.films.map(el => el.title)}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { addPeople, getPeople, setStatus } from "../../store/peopleSlice";
+import { setPeople, getPeople, setStatus } from "../../store/peopleSlice";
 import { StatusType } from "../../types/types";
 import Loader from "../Loader";
 

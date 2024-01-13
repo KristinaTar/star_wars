@@ -25,7 +25,7 @@ export const getPeopleThunk = createAsyncThunk(
   async (_, {rejectWithValue, dispatch}) => {
     await cycleFetch<Person>(
       getPeopleAPI,
-      addPeople,
+      setPeople,
       dispatch,
       () => rejectWithValue("Error"),
     );
@@ -36,7 +36,7 @@ export const peopleSlice = createSlice({
   name: "people",
   initialState,
   reducers: {
-    addPeople: (state, action: PayloadAction<Person[]>) => {
+    setPeople: (state, action: PayloadAction<Person[]>) => {
       if (action.payload) {
         state.people = [...action.payload];
       }
@@ -60,5 +60,5 @@ export const peopleSlice = createSlice({
 export const getPeople = (state: RootState) => state.people.people;
 export const setStatus = (state: RootState) => state.people.status;
 
-export const {addPeople} = peopleSlice.actions;
+export const {setPeople} = peopleSlice.actions;
 export default peopleSlice.reducer;

@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import PeoplePage from "./components/PeoplePage/PeoplePage";
+import PeoplePage from "./components/PeoplePage";
 import { useAppDispatch } from "./store/hooks";
 import { getPeopleThunk } from "./store/peopleSlice";
+import { BrowserRouter as Router, Routes as Switch, Route } from 'react-router-dom';
+import CharacterPage from "./components/CharacterPage";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -12,9 +14,13 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <PeoplePage />
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/" element={<PeoplePage/>} />
+        <Route path="/character/:id" element={<CharacterPage/>} />
+        <Route path="*" element={<PeoplePage />} />
+      </Switch>
+    </Router>
   );
 }
 

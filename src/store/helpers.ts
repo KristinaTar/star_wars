@@ -1,5 +1,5 @@
 import { ActionCreatorWithPayload, ThunkDispatch } from "@reduxjs/toolkit";
-import { PeopleResponse } from "../api/api";
+import { ApiResponse } from "../api/api";
 
 export async function cycleFetch<Type>(
   apiGetter: (next: string | null) => Promise<Response>,
@@ -13,7 +13,7 @@ export async function cycleFetch<Type>(
   // do { todo uncomment
   const res = await apiGetter(next);
   if (res.status === 200) {
-    const data = (await res.json()) as PeopleResponse<Type>;
+    const data = (await res.json()) as ApiResponse<Type>;
     elementsList = [...elementsList, ...data.results];
     next = data.next;
 

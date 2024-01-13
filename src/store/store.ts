@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import peopleReducer from "./peopleSlice";
+import selectedPersonReducer from "./selectedPersonSlice";
 
 export const store = configureStore({
   reducer: {
     people: peopleReducer,
-    // comments: commentsReducer,
-    // users: usersReducer,
+    selectedPerson: selectedPersonReducer,
   },
 })
 

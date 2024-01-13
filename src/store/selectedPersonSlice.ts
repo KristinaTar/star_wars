@@ -39,9 +39,7 @@ export const getPerson = createAsyncThunk(
     const res = await getPersonAPI(id);
     if (res.status === 200) {
       const data = (await res.json()) as Person;
-      if (data.detail === "Not found") {
-        return undefined;
-      }
+
       dispatch(setPerson(data));
       dispatch(getCharacterFilms(data.films));
       dispatch(getCharacterSpecies(data.species));

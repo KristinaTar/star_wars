@@ -5,6 +5,7 @@ import { getPerson, getPersonData, getStatus } from "../../store/selectedPersonS
 import { StatusType } from "../../types/types";
 import Loader from "../Loader";
 import ErrorPage from "../ErrorPage";
+import Layout from "../Layout";
 
 const CharacterPage: React.FC = () => {
   const { id } = useParams();
@@ -21,14 +22,14 @@ const CharacterPage: React.FC = () => {
     dispatch(getPerson(_id));
   }, [id]);
 
-  // todo  NOT found component
-
   if (status.character === StatusType.Loading) {
     return <Loader />;
-  } else if (status.character === StatusType.Error) {
+  } else if (
+    status.character === StatusType.Error
+    || personData === undefined
+    || !personData.data
+  ) {
     return <ErrorPage />;
-  } else if (personData === undefined || !personData.data) {
-    return <div>Character not found</div>
   }
 
   return (
@@ -38,4 +39,4 @@ const CharacterPage: React.FC = () => {
   );
 };
 
-export default CharacterPage;
+export default () => (<Layout><CharacterPage/></Layout>);

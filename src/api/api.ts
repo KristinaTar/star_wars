@@ -7,24 +7,18 @@ export type ApiResponse<Type> = {
 export const getPeopleAPI = (url: string | null): Promise<Response> => {
   return fetch(url || "https://swapi.dev/api/people");
 };
+export const getFilmsAPI = (url: string | null): Promise<Response> => {
+  return fetch(url || "https://swapi.dev/api/films");
+};
 export const getPersonAPI = (id: string | number): Promise<Response> => {
   return fetch(`https://swapi.dev/api/people/${id}/`);
 };
 
-/**
- * Fetches data from server. If element is not found, returns null
- * @param url Fetch url
- */
 export async function fetchData<T>(url: string)  {
   const res = await fetch(url);
 
   if (res.status === 200) {
-    const data = (await res.json()) as T & {detail?: string};
-    if (data.detail === "Not found") {
-      return null;
-    }
-
-    return data as T;
+    return (await res.json()) as T;
   } else {
     return null;
   }

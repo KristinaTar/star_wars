@@ -1,10 +1,23 @@
 import React, { useEffect } from "react";
+import { Person } from "../../types/types";
+import { CharacterCardStyled } from "./CharacterCard.styled";
+import { Link } from "react-router-dom";
 
-const CharacterCard: React.FC = () => {
+type Props = { person: Person }
+const CharacterCard: React.FC<Props> = ({person}) => {
+  const characterId = person.url.split('/')[5];
+
   return (
-    <div>
-      Character Card
-    </div>
+    <Link to={`/character/${characterId}`}>
+      <CharacterCardStyled>
+        <div>
+          Name: {person.name}
+        </div>
+        <div>
+          Birth: {person.birth_year}
+        </div>
+      </CharacterCardStyled>
+    </Link>
   );
 };
 

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import './App.css';
 import PeoplePage from "./components/PeoplePage";
 import { useAppDispatch } from "./store/hooks";
 import { getPeopleThunk } from "./store/peopleSlice";
@@ -16,9 +15,9 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/" element={<PeoplePage/>} />
-        <Route path="/character/:id" element={<CharacterPage/>} />
-        <Route path="*" element={<PeoplePage />} />
+        <Route path="/" element={<PeoplePage/>}/>
+        <Route path="/character/:id" element={<CharacterPage/>}/>
+        <Route path="*" element={<PeoplePage/>}/>
       </Switch>
     </Router>
   );

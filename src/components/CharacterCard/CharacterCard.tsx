@@ -14,6 +14,9 @@ const CharacterCard: React.FC<Props> = ({person}) => {
           Name: {person.name}
         </div>
         <div>
+          Mass: {person.mass}
+        </div>
+        <div>
           Birth: {person.birth_year}
         </div>
       </CharacterCardStyled>

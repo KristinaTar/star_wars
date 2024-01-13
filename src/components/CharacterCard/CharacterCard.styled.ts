@@ -9,7 +9,8 @@ export const CharacterCardStyled = styled.div`
   background-color: black;
   cursor: pointer;
   height: 100%;
-  min-height: 100px;
+  min-height: 150px;
+  transition: 0.5s;
 
   &:hover {
     -webkit-box-shadow: ${glowStyle};

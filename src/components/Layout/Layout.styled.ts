@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import theme from "../../global/styles/theme";
 
 export const LayoutStyled = styled.div`
   width: 100%;
@@ -16,7 +17,7 @@ export const LayoutStyled = styled.div`
       max-width: min(1440px, 90%);
       margin: 0 auto;
       padding: 30px 0;
-      color: white;
+      color: ${theme.colors.text["1"]};
     }
   }
   

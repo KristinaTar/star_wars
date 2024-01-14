@@ -10,14 +10,17 @@ const CharacterCard: React.FC<Props> = ({person}) => {
   return (
     <Link to={`/character/${characterId}`}>
       <CharacterCardStyled>
-        <div>
-          Name: {person.name}
-        </div>
-        <div>
+        <h3 className="character-name">
+          {person.name}
+        </h3>
+        <div className="character-attribute">
           Mass: {person.mass}
         </div>
-        <div>
+        <div className="character-attribute">
           Birth: {person.birth_year}
+        </div>
+        <div className="character-attribute">
+          Gender: {person.gender}
         </div>
       </CharacterCardStyled>
     </Link>

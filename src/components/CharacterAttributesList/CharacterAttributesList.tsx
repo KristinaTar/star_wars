@@ -21,7 +21,7 @@ const CharacterAttributesList: React.FC<Props> = ({
       {list.length !== 0 && (
         <ul>
           {list.map((item) => (
-            <li>{item}</li>
+            <li key={item}>{item}</li>
           ))}
         </ul>
       )}

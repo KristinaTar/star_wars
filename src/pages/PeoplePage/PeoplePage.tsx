@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import ReactSelect from "react-select";
 import { useAppSelector } from "../../store/hooks";
 import { getPeople, setStatus } from "../../store/peopleSlice";
@@ -49,6 +49,10 @@ const PeoplePage: React.FC = () => {
     setFilters((prev) => ({ ...prev, maxMass: Number(maxMass) })),
   );
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filters]);
+
   const filteredPeople = useMemo(() => {
     const name = filters.name?.toLowerCase();
     return people.filter(
@@ -91,13 +95,6 @@ const PeoplePage: React.FC = () => {
   }, [films, filters.film]);
 
   if (status === StatusType.Error) return <ErrorPage />;
-
-  console.log({
-    test:
-      paginatedPeople.length < PAGE_SIZE
-        ? new Array(PAGE_SIZE - paginatedPeople.length).fill(<div />)
-        : [],
-  });
 
   return (
     <PeoplePageStyled>
@@ -168,9 +165,12 @@ const PeoplePage: React.FC = () => {
                 <CharacterCard person={person} />
               </div>
             ))
+            // filling empty space to avoid pagination jumping
             .concat(
               paginatedPeople.length < PAGE_SIZE
-                ? new Array(PAGE_SIZE - paginatedPeople.length).fill(<div />)
+                ? new Array(PAGE_SIZE - paginatedPeople.length)
+                  .fill(null)
+                  .map((_, i) => <div key={`dummy${i}`} />)
                 : [],
             )}
         </div>

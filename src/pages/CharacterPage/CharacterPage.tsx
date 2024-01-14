@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
   getPerson,
-  getPersonData,
+  getPersonData, getPersonFilms, getPersonSpecies, getPersonStarships,
   getStatus,
 } from "../../store/selectedPersonSlice";
 import { StatusType } from "../../types/types";
@@ -17,6 +17,9 @@ const CharacterPage: React.FC = () => {
   const { id } = useParams();
   const status = useAppSelector(getStatus);
   const personData = useAppSelector(getPersonData);
+  const filmsData = useAppSelector(getPersonFilms);
+  const speciesData = useAppSelector(getPersonSpecies);
+  const starShipsData = useAppSelector(getPersonStarships);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -33,42 +36,42 @@ const CharacterPage: React.FC = () => {
   } else if (
     status.character === StatusType.Error ||
     personData === undefined ||
-    !personData.data
+    !personData
   ) {
     return <ErrorPage />;
   }
 
   return (
     <CharacterPageStyled>
-      <h1 className="title">{personData.data.name}</h1>
+      <h1 className="title">{personData.name}</h1>
       <div className="character-attributes">
         <div>Birth:</div>
-        <div>{personData.data.birth_year}</div>
+        <div>{personData.birth_year}</div>
         <div>Height:</div>
-        <div>{personData.data.height}</div>
+        <div>{personData.height}</div>
         <div>Mass:</div>
-        <div>{personData.data.mass}</div>
+        <div>{personData.mass}</div>
         <div>Hair color:</div>
-        <div>{personData.data.hair_color}</div>
+        <div>{personData.hair_color}</div>
         <div>Skin color:</div>
-        <div>{personData.data.skin_color}</div>
+        <div>{personData.skin_color}</div>
         <div>Eyes color:</div>
-        <div>{personData.data.eye_color}</div>
+        <div>{personData.eye_color}</div>
       </div>
       <CharacterAttributesList
         loading={status.species === StatusType.Loading}
         title="Species"
-        list={personData.species.map((specie) => specie.name)}
+        list={speciesData.map((specie) => specie.name)}
       />
       <CharacterAttributesList
         loading={status.films === StatusType.Loading}
         title="Movies"
-        list={personData.films.map((film) => film.title)}
+        list={filmsData.map((film) => film.title)}
       />
       <CharacterAttributesList
         loading={status.starships === StatusType.Loading}
         title="Starships"
-        list={personData.starships.map((starship) => starship.name)}
+        list={starShipsData.map((starship) => starship.name)}
       />
     </CharacterPageStyled>
   );

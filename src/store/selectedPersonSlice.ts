@@ -128,12 +128,10 @@ export const selectedPersonSlice = createSlice({
 });
 
 export const getStatus = (state: RootState) => state.selectedPerson.status;
-export const getPersonData = (state: RootState) => ({
-  data: state.selectedPerson.personData,
-  films: state.selectedPerson.filmsData,
-  species: state.selectedPerson.speciesData,
-  starships: state.selectedPerson.starShipsData,
-});
+export const getPersonData = (state: RootState) => state.selectedPerson.personData;
+export const getPersonFilms = (state: RootState) => state.selectedPerson.filmsData;
+export const getPersonSpecies = (state: RootState) => state.selectedPerson.speciesData;
+export const getPersonStarships = (state: RootState) => state.selectedPerson.starShipsData;
 
 export const { setPerson } = selectedPersonSlice.actions;
 

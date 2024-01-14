@@ -74,5 +74,4 @@ export type Starship = {
   url: string
 }
 
-export enum ErrorType { NoError, ServerProblem }
 export enum StatusType { Loading, Success, Error }

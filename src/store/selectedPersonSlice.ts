@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction, } from "@reduxjs/toolkit";
-import { ErrorType, Film, Person, Specie, Starship, StatusType } from "../types/types";
+import { Film, Person, Specie, Starship, StatusType } from "../types/types";
 import { fetchList, getPersonAPI } from "../api/api";
 import { RootState } from "./store";
 
@@ -8,7 +8,6 @@ type SelectedPersonSlice = {
   filmsData: Film[],
   starShipsData: Starship[],
   speciesData: Specie[],
-  error: ErrorType
   status: {
     character: StatusType,
     films: StatusType,
@@ -29,7 +28,6 @@ export const initialState: SelectedPersonSlice = {
   filmsData: [],
   starShipsData: [],
   speciesData: [],
-  error: ErrorType.NoError,
   status: defaultStatus,
 };
 
@@ -89,7 +87,6 @@ export const selectedPersonSlice = createSlice({
       })
       .addCase(getPerson.rejected, (state) => {
         state.status.character = StatusType.Error;
-        state.error = ErrorType.ServerProblem;
       });
 
     builder

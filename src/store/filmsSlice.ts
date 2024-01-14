@@ -4,26 +4,24 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 import { RootState } from "./store";
-import { ErrorType, Film, StatusType } from "../types/types";
+import { Film, StatusType } from "../types/types";
 import { getFilmsAPI } from "../api/api";
 import { cycleFetch } from "./helpers";
 
 type FilmsSlice = {
   films: Film[],
   status: StatusType,
-  error: ErrorType
 }
 
 export const initialState: FilmsSlice = {
   films: [],
   status: StatusType.Success,
-  error: ErrorType.NoError,
 };
 
 export const getFilmsThunk = createAsyncThunk(
   "films/getFilms",
   async (_, {rejectWithValue, dispatch}) => {
-    await cycleFetch<Film>(
+    return await cycleFetch<Film>(
       getFilmsAPI,
       setFilms,
       dispatch,
@@ -52,7 +50,6 @@ export const filmsSlice = createSlice({
       })
       .addCase(getFilmsThunk.rejected, (state) => {
         state.status = StatusType.Error;
-        state.error = ErrorType.ServerProblem;
       });
   },
 });

@@ -4,26 +4,24 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 import { RootState } from "./store";
-import { ErrorType, Person, StatusType } from "../types/types";
+import { Person, StatusType } from "../types/types";
 import { getPeopleAPI } from "../api/api";
 import { cycleFetch } from "./helpers";
 
 type PeopleSlice = {
   people: Person[],
   status: StatusType,
-  error: ErrorType
 }
 
 export const initialState: PeopleSlice = {
   people: [],
   status: StatusType.Success,
-  error: ErrorType.NoError,
 };
 
 export const getPeopleThunk = createAsyncThunk(
   "people/getPeople",
   async (_, {rejectWithValue, dispatch}) => {
-    await cycleFetch<Person>(
+    return await cycleFetch<Person>(
       getPeopleAPI,
       setPeople,
       dispatch,
@@ -52,7 +50,6 @@ export const peopleSlice = createSlice({
       })
       .addCase(getPeopleThunk.rejected, (state) => {
         state.status = StatusType.Error;
-        state.error = ErrorType.ServerProblem;
       });
   },
 });

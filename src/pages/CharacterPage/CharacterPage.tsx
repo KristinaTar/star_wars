@@ -22,7 +22,7 @@ const CharacterPage: React.FC = () => {
       navigate("/");
     }
     dispatch(getPerson(_id));
-  }, [id]);
+  }, [id, dispatch, navigate]);
 
   if (status.character === StatusType.Loading) {
     return <Loader />;
@@ -64,4 +64,6 @@ const CharacterPage: React.FC = () => {
   );
 };
 
-export default () => (<Layout><CharacterPage/></Layout>);
+export default function WrappedPage() {
+  return <Layout><CharacterPage/></Layout>
+};

@@ -12,7 +12,7 @@ function App() {
   useEffect(() => {
     dispatch(getPeopleThunk());
     dispatch(getFilmsThunk());
-  }, []);
+  }, [dispatch]);
 
   return (
     <Router>

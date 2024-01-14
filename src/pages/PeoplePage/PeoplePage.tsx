@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import ReactSelect from 'react-select';
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppSelector } from "../../store/hooks";
 import { getPeople, setStatus } from "../../store/peopleSlice";
 import { StatusType } from "../../types/types";
 import Loader from "../../components/Loader";
@@ -11,6 +11,7 @@ import { getFilms } from "../../store/filmsSlice";
 import RadioSelect from "../../components/RadioSelect";
 import { useDebounce } from "./helpers/filterHelpers";
 import Pagination from "../../components/Pagination/Pagination";
+import ErrorPage from "../../components/ErrorPage";
 
 type Filters = {
   film: string | undefined,
@@ -37,7 +38,6 @@ const PeoplePage: React.FC = () => {
 
   const [filters, setFilters] = useState<Filters>(initialFilters);
   const [currentPage, setCurrentPage] = useState(1);
-  console.log({currentPage})
 
   const [name, setName] = useDebounce(
     (name) => setFilters((prev) => ({...prev, name}))
@@ -92,7 +92,12 @@ const PeoplePage: React.FC = () => {
       label: movie.title,
       value: filters.film,
     };
-  }, [filters.film]);
+  }, [films, filters.film]);
+
+  if (status === StatusType.Error) return <ErrorPage />;
+
+  console.log({test: paginatedPeople.length < PAGE_SIZE ?
+      new Array(PAGE_SIZE - paginatedPeople.length).fill(<div/>) : []})
 
   return (
     <PeoplePageStyled>
@@ -158,20 +163,21 @@ const PeoplePage: React.FC = () => {
         : <div className="character-list">
           {paginatedPeople.map(person => <div key={person.url}>
             <CharacterCard person={person}/>
-          </div>).concat(currentPage === Math.ceil(people.length / PAGE_SIZE) ?
-            new Array(PAGE_SIZE - people.length % PAGE_SIZE).fill(<div/>) : [])
+          </div>).concat(paginatedPeople.length < PAGE_SIZE ?
+            new Array(PAGE_SIZE - paginatedPeople.length).fill(<div/>) : [])
           }
         </div>
       }
       <Pagination
         current={currentPage}
         pageSize={PAGE_SIZE}
-        // total={Math.ceil(people.length)}
-        total={people.length}
+        total={filteredPeople.length}
         onChange={setCurrentPage}
       />
     </PeoplePageStyled>
   );
 };
 
-export default () => (<Layout><PeoplePage/></Layout>);
+export default function WrappedPage() {
+  return <Layout><PeoplePage/></Layout>
+};

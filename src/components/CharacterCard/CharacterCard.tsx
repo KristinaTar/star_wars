@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Person } from "../../types/types";
 import { CharacterCardStyled } from "./CharacterCard.styled";
 import { Link } from "react-router-dom";

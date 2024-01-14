@@ -14,7 +14,7 @@ export const LayoutStyled = styled.div`
     }
     
     &-content {
-      max-width: min(1440px, 90%);
+      max-width: min(1280px, 90%);
       margin: 0 auto;
       padding: 30px 0;
       color: ${theme.colors.text["1"]};

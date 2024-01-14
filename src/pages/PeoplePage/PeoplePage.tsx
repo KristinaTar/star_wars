@@ -10,6 +10,7 @@ import CharacterCard from "../../components/CharacterCard";
 import { getFilms } from "../../store/filmsSlice";
 import RadioSelect from "../../components/RadioSelect";
 import { useDebounce } from "./helpers/filterHelpers";
+import Pagination from "../../components/Pagination/Pagination";
 
 type Filters = {
   film: string | undefined,
@@ -27,13 +28,16 @@ const initialFilters = {
   maxMass: undefined,
 };
 
+const PAGE_SIZE = window.innerWidth <= 720 ? 8 : 9;
+
 const PeoplePage: React.FC = () => {
-  const dispatch = useAppDispatch();
   const people = useAppSelector(getPeople);
   const status = useAppSelector(setStatus);
   const films = useAppSelector(getFilms);
 
   const [filters, setFilters] = useState<Filters>(initialFilters);
+  const [currentPage, setCurrentPage] = useState(1);
+  console.log({currentPage})
 
   const [name, setName] = useDebounce(
     (name) => setFilters((prev) => ({...prev, name}))
@@ -65,8 +69,16 @@ const PeoplePage: React.FC = () => {
     [people, filters]
   );
 
+  const paginatedPeople = useMemo(() => {
+      return filteredPeople
+        .slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+    },
+    [filteredPeople, currentPage]
+  );
+
   const resetFilters = ()  => {
     setFilters(initialFilters);
+    setCurrentPage(1);
     // resetting debounce
     setName("");
     setMinMass("");
@@ -86,6 +98,7 @@ const PeoplePage: React.FC = () => {
     <PeoplePageStyled>
       <div className="filters-container">
         <ReactSelect
+          className="movies-select flex-item"
           value={movieValue}
           classNamePrefix="movies-select"
           options={films.map(film => ({
@@ -111,28 +124,31 @@ const PeoplePage: React.FC = () => {
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="filter-input"
+          className="filter-input flex-item"
           placeholder="Name"
         />
-        <input
-          value={minMass}
-          onChange={(e) => {
-            e.target.value = e.target.value.replace(/[^0-9]+/g, '');
-            setMinMass(e.target.value)
-          }}
-          className="filter-input filter-input--mass"
-          placeholder="Min mass"
-        />
-        <input
-          value={maxMass}
-          onChange={(e) => {
-            e.target.value = e.target.value.replace(/[^0-9]+/g, '');
-            setMaxMass(e.target.value)
-          }}
-          className="filter-input filter-input--mass"
-          placeholder="Max mass"
-        />
+        <div className="mass-container">
+          <input
+            value={minMass}
+            onChange={(e) => {
+              e.target.value = e.target.value.replace(/[^0-9]+/g, '');
+              setMinMass(e.target.value)
+            }}
+            className="filter-input filter-input--mass"
+            placeholder="Min mass"
+          />
+          <input
+            value={maxMass}
+            onChange={(e) => {
+              e.target.value = e.target.value.replace(/[^0-9]+/g, '');
+              setMaxMass(e.target.value)
+            }}
+            className="filter-input filter-input--mass"
+            placeholder="Max mass"
+          />
+        </div>
         <button
+          className="flex-item"
           type="button"
           onClick={resetFilters}
         >Reset</button>
@@ -140,11 +156,20 @@ const PeoplePage: React.FC = () => {
       {status === StatusType.Loading && filteredPeople.length === 0
         ? <Loader/>
         : <div className="character-list">
-          {filteredPeople.map(person => <div key={person.url}>
+          {paginatedPeople.map(person => <div key={person.url}>
             <CharacterCard person={person}/>
-          </div>)}
+          </div>).concat(currentPage === Math.ceil(people.length / PAGE_SIZE) ?
+            new Array(PAGE_SIZE - people.length % PAGE_SIZE).fill(<div/>) : [])
+          }
         </div>
       }
+      <Pagination
+        current={currentPage}
+        pageSize={PAGE_SIZE}
+        // total={Math.ceil(people.length)}
+        total={people.length}
+        onChange={setCurrentPage}
+      />
     </PeoplePageStyled>
   );
 };

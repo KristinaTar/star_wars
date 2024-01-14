@@ -4,3 +4,4 @@
 
 - react-select
 - styled-components
+- antd

@@ -12,12 +12,30 @@ const textStyle = css`
 export const PeoplePageStyled = styled.div`
   .character-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
+
+    @media screen and (max-width: 720px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   .filters-container {
-    margin-bottom: 20px;
+    margin-bottom: 40px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .movies-select {
+    min-width: 240px;
+  }
+  
+  .flex-item {
+    flex: 1;
+  }
+  
+  .mass-container {
     display: flex;
     gap: 10px;
   }
@@ -30,6 +48,11 @@ export const PeoplePageStyled = styled.div`
     outline: none !important;
     color: ${theme.colors.text['1']};
     ${textStyle};
+    
+
+    &:focus {
+      border: solid 1px ${theme.colors.primary['5']};
+    }
 
     &--mass {
       max-width: 100px;

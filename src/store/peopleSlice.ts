@@ -48,7 +48,7 @@ export const peopleSlice = createSlice({
 });
 
 export const getPeople = (state: RootState) => state.people.people;
-export const setStatus = (state: RootState) => state.people.status;
+export const getStatus = (state: RootState) => state.people.status;
 
 export const { setPeople } = peopleSlice.actions;
 export default peopleSlice.reducer;

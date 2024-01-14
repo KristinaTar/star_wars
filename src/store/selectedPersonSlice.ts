@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Film, Person, Specie, Starship, StatusType } from "../types/types";
 import { fetchList, getPersonAPI } from "../api/api";
 import { RootState } from "./store";
@@ -38,7 +38,6 @@ export const getPerson = createAsyncThunk(
     if (res.status === 200) {
       const data = (await res.json()) as Person;
 
-      dispatch(setPerson(data));
       dispatch(getCharacterFilms(data.films));
       dispatch(getCharacterSpecies(data.species));
       dispatch(getCharacterStarships(data.starships));
@@ -66,13 +65,7 @@ export const getCharacterStarships = createAsyncThunk(
 export const selectedPersonSlice = createSlice({
   name: "selectedPerson",
   initialState,
-  reducers: {
-    setPerson: (state, action: PayloadAction<Person>) => {
-      if (action.payload) {
-        state.personData = action.payload;
-      }
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(getPerson.pending, (state) => {
@@ -132,7 +125,5 @@ export const getPersonData = (state: RootState) => state.selectedPerson.personDa
 export const getPersonFilms = (state: RootState) => state.selectedPerson.filmsData;
 export const getPersonSpecies = (state: RootState) => state.selectedPerson.speciesData;
 export const getPersonStarships = (state: RootState) => state.selectedPerson.starShipsData;
-
-export const { setPerson } = selectedPersonSlice.actions;
 
 export default selectedPersonSlice.reducer;

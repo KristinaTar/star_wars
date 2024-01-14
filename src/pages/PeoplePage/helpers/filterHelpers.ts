@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 
+/**
+ * Debounce function for delayed filter change
+ * @param callback Function which changes filter
+ */
 export function useDebounce(callback: (value: string) => void) {
   const [value, setValue] = useState("");
 

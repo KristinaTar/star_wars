@@ -8,7 +8,12 @@ type Props = {
   current: number;
   onChange: (page: number) => void;
 };
-
+/**
+ * @param pageSize Number of elements on the page
+ * @param total Total number of elements in the list
+ * @param current Current page, starting from 1
+ * @param onChange Change handler for page change
+ */
 const Pagination: React.FC<Props> = ({
   pageSize,
   total,

@@ -38,10 +38,12 @@ export async function fetchData<T>(url: string) {
 
 /**
  * Fetches list of requests based on list of URIs
- * @param list List of URIs
+ * @type T Return type of each request
+ * @param urlList List of URIs
+ * @returns List of responses
  */
-export async function fetchList<T>(list: string[]) {
-  return (await Promise.all(list.map((item) => fetchData<T>(item)))).filter(
+export async function fetchList<T>(urlList: string[]) {
+  return (await Promise.all(urlList.map((url) => fetchData<T>(url)))).filter(
     (el) => el !== null,
   ) as T[];
 }

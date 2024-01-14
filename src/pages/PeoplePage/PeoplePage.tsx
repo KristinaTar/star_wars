@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import ReactSelect from "react-select";
 import { useAppSelector } from "../../store/hooks";
-import { getPeople, setStatus } from "../../store/peopleSlice";
+import { getPeople, getStatus } from "../../store/peopleSlice";
 import { StatusType } from "../../types/types";
 import Loader from "../../components/Loader";
 import Layout from "../../components/Layout";
@@ -33,7 +33,7 @@ const PAGE_SIZE = window.innerWidth <= 720 ? 8 : 9;
 
 const PeoplePage: React.FC = () => {
   const people = useAppSelector(getPeople);
-  const status = useAppSelector(setStatus);
+  const status = useAppSelector(getStatus);
   const films = useAppSelector(getFilms);
 
   const [filters, setFilters] = useState<Filters>(initialFilters);

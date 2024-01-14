@@ -10,7 +10,7 @@ type Props = {
 const CharacterAttributesList: React.FC<Props> = ({
   title,
   list,
-  loading = true,
+  loading,
 }) => {
   return (
     <CharacterAttributesListStyled>

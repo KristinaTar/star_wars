@@ -1,6 +1,7 @@
 import React from "react";
 import { Pagination as LibraryPagination } from "antd";
 import PaginationStyles from "./Pagination.styles";
+import useWindowSize from "../../hooks/useWindowSize";
 
 type Props = {
   pageSize: number;
@@ -20,6 +21,8 @@ const Pagination: React.FC<Props> = ({
   current,
   onChange,
 }) => {
+  const { width } = useWindowSize();
+
   return (
     <PaginationStyles>
       <LibraryPagination
@@ -28,7 +31,7 @@ const Pagination: React.FC<Props> = ({
         current={current}
         onChange={onChange}
         showSizeChanger={false}
-        showLessItems={window.innerWidth < 400}
+        showLessItems={width < 400}
       />
     </PaginationStyles>
   );

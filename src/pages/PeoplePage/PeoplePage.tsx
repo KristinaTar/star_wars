@@ -9,9 +9,10 @@ import { PeoplePageStyled } from "./PeoplePage.styled";
 import CharacterCard from "../../components/CharacterCard";
 import { getFilms } from "../../store/filmsSlice";
 import RadioSelect from "../../components/RadioSelect";
-import { useDebounce } from "./helpers/filterHelpers";
+import { useDebounce } from "../../hooks/useDebounce";
 import Pagination from "../../components/Pagination/Pagination";
 import ErrorPage from "../../components/ErrorPage";
+import useWindowSize from "../../hooks/useWindowSize";
 
 type Filters = {
   film: string | undefined;
@@ -29,12 +30,13 @@ const initialFilters = {
   maxMass: undefined,
 };
 
-const PAGE_SIZE = window.innerWidth <= 720 ? 8 : 9;
-
 const PeoplePage: React.FC = () => {
   const people = useAppSelector(getPeople);
   const status = useAppSelector(getStatus);
   const films = useAppSelector(getFilms);
+
+  const { width } = useWindowSize();
+  const PAGE_SIZE = width <= 720 ? 8 : 9;
 
   const [filters, setFilters] = useState<Filters>(initialFilters);
   const [currentPage, setCurrentPage] = useState(1);
@@ -74,7 +76,7 @@ const PeoplePage: React.FC = () => {
       (currentPage - 1) * PAGE_SIZE,
       currentPage * PAGE_SIZE,
     );
-  }, [filteredPeople, currentPage]);
+  }, [filteredPeople, currentPage, PAGE_SIZE]);
 
   const resetFilters = () => {
     setFilters(initialFilters);

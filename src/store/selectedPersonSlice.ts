@@ -75,7 +75,7 @@ export const selectedPersonSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getPerson.pending, (state, action) => {
+      .addCase(getPerson.pending, (state) => {
         state.status = defaultStatus;
         state.filmsData = [];
         state.speciesData = [];
@@ -90,7 +90,7 @@ export const selectedPersonSlice = createSlice({
       });
 
     builder
-      .addCase(getCharacterFilms.pending, (state, action) => {
+      .addCase(getCharacterFilms.pending, (state) => {
         state.status.films = StatusType.Loading;
       })
       .addCase(getCharacterFilms.fulfilled, (state, action) => {
@@ -102,7 +102,7 @@ export const selectedPersonSlice = createSlice({
       });
 
     builder
-      .addCase(getCharacterSpecies.pending, (state, action) => {
+      .addCase(getCharacterSpecies.pending, (state) => {
         state.status.species = StatusType.Loading;
       })
       .addCase(getCharacterSpecies.fulfilled, (state, action) => {
@@ -114,7 +114,7 @@ export const selectedPersonSlice = createSlice({
       });
 
     builder
-      .addCase(getCharacterStarships.pending, (state, action) => {
+      .addCase(getCharacterStarships.pending, (state) => {
         state.status.starships = StatusType.Loading;
       })
       .addCase(getCharacterStarships.fulfilled, (state, action) => {

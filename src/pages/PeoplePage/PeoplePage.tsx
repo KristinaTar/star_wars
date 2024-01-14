@@ -3,12 +3,12 @@ import ReactSelect from 'react-select';
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { getPeople, setStatus } from "../../store/peopleSlice";
 import { StatusType } from "../../types/types";
-import Loader from "../Loader";
-import Layout from "../Layout";
+import Loader from "../../components/Loader";
+import Layout from "../../components/Layout";
 import { PeoplePageStyled } from "./PeoplePage.styled";
-import CharacterCard from "../CharacterCard";
+import CharacterCard from "../../components/CharacterCard";
 import { getFilms } from "../../store/filmsSlice";
-import RadioSelect from "../RadioSelect";
+import RadioSelect from "../../components/RadioSelect";
 import { useDebounce } from "./helpers/filterHelpers";
 
 type Filters = {
@@ -50,14 +50,14 @@ const PeoplePage: React.FC = () => {
   const filteredPeople = useMemo(() => {
       const name = filters.name?.toLowerCase();
       return people.filter(person =>
-        (!filters.film || person.films.includes(filters.film))
-        && (!name || person.name.toLowerCase().includes(name))
-        && (!filters.gender
-          || person.gender === filters.gender
-          || (filters.gender === 'other' && person.gender !== 'male' && person.gender !== 'female')
-        )
-        && (!filters.minMass || Number(person.mass) >= filters.minMass)
-        && (!filters.maxMass || Number(person.mass) <= filters.maxMass)
+          (!filters.film || person.films.includes(filters.film))
+          && (!name || person.name.toLowerCase().includes(name))
+          && (!filters.gender
+            || person.gender === filters.gender
+            || (filters.gender === 'other' && person.gender !== 'male' && person.gender !== 'female')
+          )
+          && (!filters.minMass || Number(person.mass) >= filters.minMass)
+          && (!filters.maxMass || Number(person.mass) <= filters.maxMass)
       );
     },
     [people, filters]
@@ -110,9 +110,14 @@ const PeoplePage: React.FC = () => {
           placeholder="Max mass"
         />
       </div>
-      {status === StatusType.Loading ? <Loader/> : <div className="character-list">
-        {filteredPeople.map(person => <CharacterCard person={person}/>)}
-      </div>}
+      {status === StatusType.Loading && filteredPeople.length === 0
+        ? <Loader/>
+        : <div className="character-list">
+          {filteredPeople.map(person => <div key={person.url}>
+            <CharacterCard person={person}/>
+          </div>)}
+        </div>
+      }
     </PeoplePageStyled>
   );
 };

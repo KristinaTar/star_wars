@@ -1,15 +1,25 @@
+import { Film, Person } from "../types/types";
+
 export type ApiResponse<Type> = {
   count: number,
   next: string | null,
   previous: string | null,
   results: Type[],
 }
-export const getPeopleAPI = (url: string | null): Promise<Response> => {
-  return fetch(url || "https://swapi.dev/api/people");
+export const getPeopleAPI = async (page?: number) => {
+  return fetchData<ApiResponse<Person>>(page
+    ? `https://swapi.dev/api/people/?page=${page}`
+    : "https://swapi.dev/api/people"
+  );
 };
-export const getFilmsAPI = (url: string | null): Promise<Response> => {
-  return fetch(url || "https://swapi.dev/api/films");
+
+export const getFilmsAPI = (page?: number) => {
+  return fetchData<ApiResponse<Film>>(page
+    ? `https://swapi.dev/api/films/?page=${page}`
+    : "https://swapi.dev/api/films"
+  );
 };
+
 export const getPersonAPI = (id: string | number): Promise<Response> => {
   return fetch(`https://swapi.dev/api/people/${id}/`);
 };

@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import PeoplePage from "./components/PeoplePage";
 import { useAppDispatch } from "./store/hooks";
 import { getPeopleThunk } from "./store/peopleSlice";
 import { BrowserRouter as Router, Routes as Switch, Route } from 'react-router-dom';
-import CharacterPage from "./components/CharacterPage";
+import PeoplePage from "./pages/PeoplePage";
+import CharacterPage from "./pages/CharacterPage";
 import { getFilmsThunk } from "./store/filmsSlice";
 
 function App() {

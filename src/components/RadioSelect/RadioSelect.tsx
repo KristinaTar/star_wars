@@ -9,7 +9,7 @@ type Props = {
 const RadioSelect: React.FC<Props> = ({ options, value, onChange }) => {
   return (
     <RadioSelectStyled>
-      {options.map(option => (<div className="radio">
+      {options.map(option => (<div className="radio" key={`radio-${option}`}>
         <label className="radio-label">
           <input
             className="radio-element"

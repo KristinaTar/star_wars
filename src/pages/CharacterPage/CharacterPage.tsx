@@ -37,6 +37,14 @@ const CharacterPage: React.FC = () => {
   return (
     <CharacterPageStyled>
       <h1 className="title">{personData.data.name}</h1>
+      <div className="character-attributes">
+        <div>Birth:</div><div>{personData.data.birth_year}</div>
+        <div>Height:</div><div>{personData.data.height}</div>
+        <div>Mass:</div><div>{personData.data.mass}</div>
+        <div>Hair color:</div><div>{personData.data.hair_color}</div>
+        <div>Skin color:</div><div>{personData.data.skin_color}</div>
+        <div>Eyes color:</div><div>{personData.data.eye_color}</div>
+      </div>
       <CharacterAttributesList
         loading={status.species === StatusType.Loading}
         title="Species"

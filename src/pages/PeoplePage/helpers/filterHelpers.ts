@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 
-export function useDebounce(
-  callback: (value: string) => void
-) {
-  const [value, setValue] = useState('');
+export function useDebounce(callback: (value: string) => void) {
+  const [value, setValue] = useState("");
 
   useEffect(() => {
     const delay = 500;

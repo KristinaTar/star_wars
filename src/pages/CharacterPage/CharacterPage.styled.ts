@@ -1,10 +1,10 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const CharacterPageStyled = styled.div`
   margin: 0 auto;
   max-width: 400px;
   font-size: 18px;
-  
+
   .title {
     margin-top: 0;
     text-align: center;

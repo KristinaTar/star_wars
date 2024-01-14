@@ -1,17 +1,13 @@
-import {
-  createAsyncThunk,
-  createSlice,
-  PayloadAction,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import { Film, StatusType } from "../types/types";
 import { getFilmsAPI } from "../api/api";
 import { cycleFetch } from "./helpers";
 
 type FilmsSlice = {
-  films: Film[],
-  status: StatusType,
-}
+  films: Film[];
+  status: StatusType;
+};
 
 export const initialState: FilmsSlice = {
   films: [],
@@ -20,14 +16,11 @@ export const initialState: FilmsSlice = {
 
 export const getFilmsThunk = createAsyncThunk(
   "films/getFilms",
-  async (_, {rejectWithValue, dispatch}) => {
-    return await cycleFetch<Film>(
-      getFilmsAPI,
-      setFilms,
-      dispatch,
-      () => rejectWithValue("Error"),
+  async (_, { rejectWithValue, dispatch }) => {
+    return await cycleFetch<Film>(getFilmsAPI, setFilms, dispatch, () =>
+      rejectWithValue("Error"),
     );
-  }
+  },
 );
 
 export const filmsSlice = createSlice({
@@ -56,5 +49,5 @@ export const filmsSlice = createSlice({
 
 export const getFilms = (state: RootState) => state.films.films;
 
-export const {setFilms} = filmsSlice.actions;
+export const { setFilms } = filmsSlice.actions;
 export default filmsSlice.reducer;

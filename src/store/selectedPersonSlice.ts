@@ -1,20 +1,20 @@
-import { createAsyncThunk, createSlice, PayloadAction, } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Film, Person, Specie, Starship, StatusType } from "../types/types";
 import { fetchList, getPersonAPI } from "../api/api";
 import { RootState } from "./store";
 
 type SelectedPersonSlice = {
-  personData: Person | undefined,
-  filmsData: Film[],
-  starShipsData: Starship[],
-  speciesData: Specie[],
+  personData: Person | undefined;
+  filmsData: Film[];
+  starShipsData: Starship[];
+  speciesData: Specie[];
   status: {
-    character: StatusType,
-    films: StatusType,
-    species: StatusType,
-    starships: StatusType,
-  },
-}
+    character: StatusType;
+    films: StatusType;
+    species: StatusType;
+    starships: StatusType;
+  };
+};
 
 const defaultStatus = {
   character: StatusType.Loading,
@@ -33,7 +33,7 @@ export const initialState: SelectedPersonSlice = {
 
 export const getPerson = createAsyncThunk(
   "person/getPerson",
-  async (id: number, {rejectWithValue, dispatch}) => {
+  async (id: number, { rejectWithValue, dispatch }) => {
     const res = await getPersonAPI(id);
     if (res.status === 200) {
       const data = (await res.json()) as Person;
@@ -47,20 +47,20 @@ export const getPerson = createAsyncThunk(
     } else {
       return rejectWithValue("Error");
     }
-  }
+  },
 );
 
 export const getCharacterFilms = createAsyncThunk(
   "person/getCharacterFilms",
-  fetchList<Film>
+  fetchList<Film>,
 );
 export const getCharacterSpecies = createAsyncThunk(
   "person/getCharacterSpecies",
-  fetchList<Specie>
+  fetchList<Specie>,
 );
 export const getCharacterStarships = createAsyncThunk(
   "person/getCharacterStarships",
-  fetchList<Starship>
+  fetchList<Starship>,
 );
 
 export const selectedPersonSlice = createSlice({
@@ -135,6 +135,6 @@ export const getPersonData = (state: RootState) => ({
   starships: state.selectedPerson.starShipsData,
 });
 
-export const {setPerson} = selectedPersonSlice.actions;
+export const { setPerson } = selectedPersonSlice.actions;
 
 export default selectedPersonSlice.reducer;

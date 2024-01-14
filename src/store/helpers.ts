@@ -8,9 +8,8 @@ export async function cycleFetch<Type>(
   apiGetter: (page?: number) => Promise<ApiResponse<Type> | null>,
   actionCreator: ActionCreatorWithPayload<Type[]>,
   dispatch: ThunkDispatch<any, any, any>,
-  reject: () => void
+  reject: () => void,
 ) {
-
   const data = await apiGetter();
   // if first page failed to fetch - reject
   if (!data) return reject();
@@ -20,18 +19,19 @@ export async function cycleFetch<Type>(
 
   if (data.count > PAGE_SIZE) {
     const remainingPages = Math.ceil((data.count - PAGE_SIZE) / PAGE_SIZE);
-    const pagesNumbers = new Array(remainingPages).fill(null)
+    const pagesNumbers = new Array(remainingPages)
+      .fill(null)
       .map((_, index) => index + START_PAGE);
 
-    const responsesList = (await Promise.all(
-      pagesNumbers.map(index => apiGetter(index))
-    ));
+    const responsesList = await Promise.all(
+      pagesNumbers.map((index) => apiGetter(index)),
+    );
 
     const remainingPagesList = responsesList
-      .filter(response => response !== null)
-      .map(response => response!.results);
+      .filter((response) => response !== null)
+      .map((response) => response!.results);
 
-    remainingPagesList.forEach(list => {
+    remainingPagesList.forEach((list) => {
       elementsList = elementsList.concat(list);
     });
 

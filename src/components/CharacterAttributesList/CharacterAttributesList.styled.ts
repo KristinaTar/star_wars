@@ -1,5 +1,3 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-export const CharacterAttributesListStyled = styled.div`
-  
-`;
+export const CharacterAttributesListStyled = styled.div``;

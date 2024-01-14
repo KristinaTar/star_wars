@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 import theme from "../../global/styles/theme";
 
 const textStyle = css`
@@ -15,7 +15,7 @@ export const PeoplePageStyled = styled.div`
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     grid-auto-rows: 1fr;
-    
+
     @media screen and (max-width: 720px) {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -27,32 +27,31 @@ export const PeoplePageStyled = styled.div`
     gap: 10px;
     flex-wrap: wrap;
   }
-  
+
   .movies-select {
     min-width: 240px;
   }
-  
+
   .flex-item {
     flex: 1;
   }
-  
+
   .mass-container {
     display: flex;
     gap: 10px;
   }
 
   .filter-input {
-    background-color: ${theme.colors.primary['1']};
+    background-color: ${theme.colors.primary["1"]};
     border-radius: 3px;
-    border: solid 1px ${theme.colors.primary['2']};
+    border: solid 1px ${theme.colors.primary["2"]};
     padding: 10px 16px;
     outline: none !important;
-    color: ${theme.colors.text['1']};
+    color: ${theme.colors.text["1"]};
     ${textStyle};
-    
 
     &:focus {
-      border: solid 1px ${theme.colors.primary['5']};
+      border: solid 1px ${theme.colors.primary["5"]};
     }
 
     &--mass {
@@ -70,15 +69,15 @@ export const PeoplePageStyled = styled.div`
     }
 
     &__control {
-      background-color: ${theme.colors.primary['1']};
+      background-color: ${theme.colors.primary["1"]};
       width: 100%;
       padding: 10px 16px;
       border-radius: 3px;
-      border-color: ${theme.colors.primary['2']};
+      border-color: ${theme.colors.primary["2"]};
       cursor: pointer;
 
       &:hover {
-        border-color: ${theme.colors.primary['5']};
+        border-color: ${theme.colors.primary["5"]};
       }
     }
 
@@ -98,11 +97,11 @@ export const PeoplePageStyled = styled.div`
     }
 
     &__menu {
-      background-color: ${theme.colors.primary['1']};
+      background-color: ${theme.colors.primary["1"]};
     }
 
     &__single-value {
-      color: ${theme.colors.text['1']};
+      color: ${theme.colors.text["1"]};
       font-size: 16px;
       font-style: normal;
       font-weight: 500;
@@ -111,11 +110,11 @@ export const PeoplePageStyled = styled.div`
     }
 
     &__option {
-      color: ${theme.colors.text['1']};
+      color: ${theme.colors.text["1"]};
       cursor: pointer;
 
       &:hover {
-        background-color: ${theme.colors.primary['2']};
+        background-color: ${theme.colors.primary["2"]};
       }
 
       &--is-focused,
@@ -124,11 +123,11 @@ export const PeoplePageStyled = styled.div`
       }
 
       &--is-selected {
-        color: ${theme.colors.primary['5']};
+        color: ${theme.colors.primary["5"]};
 
         &:hover {
-          color: ${theme.colors.text['1']};
-          background-color: ${theme.colors.primary['2']};
+          color: ${theme.colors.text["1"]};
+          background-color: ${theme.colors.primary["2"]};
         }
       }
     }

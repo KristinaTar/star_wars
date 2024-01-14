@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import theme from "../../global/styles/theme";
 
 export const LayoutStyled = styled.div`
@@ -6,13 +6,13 @@ export const LayoutStyled = styled.div`
   height: 100%;
   min-height: 100vh;
   background: url("https://lumiere-a.akamaihd.net/v1/images/swkids_starfield_background_a5e9ebd0.png?region=0%2C0%2C711%2C745");
-  
+
   .layout {
     &-header {
       height: 100px;
       background: url("/images/Star_Wars_Logo.png") center no-repeat;
     }
-    
+
     &-content {
       max-width: min(1280px, 90%);
       margin: 0 auto;
@@ -20,12 +20,12 @@ export const LayoutStyled = styled.div`
       color: ${theme.colors.text["1"]};
     }
   }
-  
+
   a {
     text-decoration: none;
     color: inherit;
   }
-  
+
   button {
     border: none;
     border-radius: 3px;
@@ -36,7 +36,7 @@ export const LayoutStyled = styled.div`
     transition: 0.5s;
     font-size: 15px;
     font-weight: 800;
-    
+
     &:hover {
       background-color: ${theme.colors.primary["5"]};
     }

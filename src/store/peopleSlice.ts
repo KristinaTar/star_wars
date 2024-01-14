@@ -1,17 +1,13 @@
-import {
-  createAsyncThunk,
-  createSlice,
-  PayloadAction,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import { Person, StatusType } from "../types/types";
 import { getPeopleAPI } from "../api/api";
 import { cycleFetch } from "./helpers";
 
 type PeopleSlice = {
-  people: Person[],
-  status: StatusType,
-}
+  people: Person[];
+  status: StatusType;
+};
 
 export const initialState: PeopleSlice = {
   people: [],
@@ -20,14 +16,11 @@ export const initialState: PeopleSlice = {
 
 export const getPeopleThunk = createAsyncThunk(
   "people/getPeople",
-  async (_, {rejectWithValue, dispatch}) => {
-    return await cycleFetch<Person>(
-      getPeopleAPI,
-      setPeople,
-      dispatch,
-      () => rejectWithValue("Error"),
+  async (_, { rejectWithValue, dispatch }) => {
+    return await cycleFetch<Person>(getPeopleAPI, setPeople, dispatch, () =>
+      rejectWithValue("Error"),
     );
-  }
+  },
 );
 
 export const peopleSlice = createSlice({
@@ -57,5 +50,5 @@ export const peopleSlice = createSlice({
 export const getPeople = (state: RootState) => state.people.people;
 export const setStatus = (state: RootState) => state.people.status;
 
-export const {setPeople} = peopleSlice.actions;
+export const { setPeople } = peopleSlice.actions;
 export default peopleSlice.reducer;

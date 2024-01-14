@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import theme from "../../global/styles/theme";
 
 const glowStyle = `inset 0 0 10px ${theme.colors.glow[1]}`;

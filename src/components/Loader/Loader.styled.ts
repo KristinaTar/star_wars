@@ -1,11 +1,11 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 import theme from "../../global/styles/theme";
 
 const spinnerStyle = css`
   display: inline-block;
-  border: 3px solid ${theme.colors.secondary['1']};
+  border: 3px solid ${theme.colors.secondary["1"]};
   border-radius: 50%;
-  border-top-color: ${theme.colors.primary['4']};
+  border-top-color: ${theme.colors.primary["4"]};
   animation: spin 1s ease-in-out infinite;
   -webkit-animation: spin 1s ease-in-out infinite;
 `;
@@ -31,9 +31,11 @@ export const LoaderStyled = styled.div`
   min-height: 50vh;
 
   .title {
-    font: 2em 'Roboto', sans-serif;
+    font:
+      2em "Roboto",
+      sans-serif;
     margin-bottom: 40px;
-    color: ${theme.colors.primary['5']};
+    color: ${theme.colors.primary["5"]};
   }
 
   .loading {

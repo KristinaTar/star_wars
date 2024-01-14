@@ -14,5 +14,5 @@ export function useDebounce(
     return () => clearTimeout(timer);
   }, [value]);
 
-  return setValue;
+  return [value, setValue] as const;
 }

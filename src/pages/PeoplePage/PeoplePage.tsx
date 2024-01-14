@@ -19,29 +19,31 @@ type Filters = {
   maxMass: number | undefined,
 }
 
+const initialFilters = {
+  film: undefined,
+  name: undefined,
+  gender: undefined,
+  minMass: undefined,
+  maxMass: undefined,
+};
+
 const PeoplePage: React.FC = () => {
   const dispatch = useAppDispatch();
   const people = useAppSelector(getPeople);
   const status = useAppSelector(setStatus);
   const films = useAppSelector(getFilms);
 
-  const [filters, setFilters] = useState<Filters>({
-    film: undefined,
-    name: undefined,
-    gender: undefined,
-    minMass: undefined,
-    maxMass: undefined,
-  });
+  const [filters, setFilters] = useState<Filters>(initialFilters);
 
-  const setName = useDebounce(
+  const [name, setName] = useDebounce(
     (name) => setFilters((prev) => ({...prev, name}))
   );
-  const setMinMass = useDebounce(
+  const [minMass, setMinMass] = useDebounce(
     (minMass) => setFilters((prev) => (
       {...prev, minMass: Number(minMass)}
     ))
   );
-  const setMaxMass = useDebounce(
+  const [maxMass, setMaxMass] = useDebounce(
     (maxMass) => setFilters((prev) => (
       {...prev, maxMass: Number(maxMass)}
     ))
@@ -63,10 +65,28 @@ const PeoplePage: React.FC = () => {
     [people, filters]
   );
 
+  const resetFilters = ()  => {
+    setFilters(initialFilters);
+    // resetting debounce
+    setName("");
+    setMinMass("");
+    setMaxMass("");
+  }
+
+  const movieValue = useMemo(() => {
+    const movie = films.find(film => film.url === filters.film);
+    if (!movie) return null;
+    return {
+      label: movie.title,
+      value: filters.film,
+    };
+  }, [filters.film]);
+
   return (
     <PeoplePageStyled>
       <div className="filters-container">
         <ReactSelect
+          value={movieValue}
           classNamePrefix="movies-select"
           options={films.map(film => ({
             label: film.title,
@@ -89,11 +109,13 @@ const PeoplePage: React.FC = () => {
           }}
         />
         <input
+          value={name}
           onChange={(e) => setName(e.target.value)}
           className="filter-input"
           placeholder="Name"
         />
         <input
+          value={minMass}
           onChange={(e) => {
             e.target.value = e.target.value.replace(/[^0-9]+/g, '');
             setMinMass(e.target.value)
@@ -102,6 +124,7 @@ const PeoplePage: React.FC = () => {
           placeholder="Min mass"
         />
         <input
+          value={maxMass}
           onChange={(e) => {
             e.target.value = e.target.value.replace(/[^0-9]+/g, '');
             setMaxMass(e.target.value)
@@ -109,6 +132,10 @@ const PeoplePage: React.FC = () => {
           className="filter-input filter-input--mass"
           placeholder="Max mass"
         />
+        <button
+          type="button"
+          onClick={resetFilters}
+        >Reset</button>
       </div>
       {status === StatusType.Loading && filteredPeople.length === 0
         ? <Loader/>

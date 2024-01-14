@@ -51,6 +51,11 @@ export const PeoplePageStyled = styled.div`
       padding: 10px 16px;
       border-radius: 3px;
       border-color: ${theme.colors.primary['2']};
+      cursor: pointer;
+
+      &:hover {
+        border-color: ${theme.colors.primary['5']};
+      }
     }
 
     &__value-container {
@@ -83,6 +88,7 @@ export const PeoplePageStyled = styled.div`
 
     &__option {
       color: ${theme.colors.text['1']};
+      cursor: pointer;
 
       &:hover {
         background-color: ${theme.colors.primary['2']};
@@ -94,7 +100,7 @@ export const PeoplePageStyled = styled.div`
       }
 
       &--is-selected {
-        color: ${theme.colors.primary['2']};
+        color: ${theme.colors.primary['5']};
 
         &:hover {
           color: ${theme.colors.text['1']};

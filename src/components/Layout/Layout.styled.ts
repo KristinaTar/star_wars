@@ -25,4 +25,20 @@ export const LayoutStyled = styled.div`
     text-decoration: none;
     color: inherit;
   }
+  
+  button {
+    border: none;
+    border-radius: 3px;
+    background-color: ${theme.colors.primary["2"]};
+    color: ${theme.colors.text["1"]};
+    padding: 10px 30px;
+    cursor: pointer;
+    transition: 0.5s;
+    font-size: 15px;
+    font-weight: 800;
+    
+    &:hover {
+      background-color: ${theme.colors.primary["5"]};
+    }
+  }
 `;
